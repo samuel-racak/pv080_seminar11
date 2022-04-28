@@ -1,8 +1,10 @@
-import yaml
+from cgitb import reset
 import subprocess
+import yaml
 import hashlib
 import subprocess
 import flask
+import urllib
 
 
 def transcode_file(request, filename):
@@ -12,9 +14,9 @@ def transcode_file(request, filename):
 
 def load_config(filename):
     # Load a configuration file into YAML
-    stream = file.open(filename, "w")
+    stream = open(filename, "w")
     config = yaml.load(stream)
-
+    return config
 
 def authenticate(password):
     # Assert that the password is correct
@@ -27,12 +29,12 @@ def fetch_website(urllib_version, url):
     exec(f"import urllib{urllib_version} as urllib", globals())
     # Fetch and print the requested URL
     http = urllib.PoolManager()
-    r = http.request('GET', url)
-    return r.data
+    result = http.request('GET', url)
+    return result.data
 
 
 
-@app.route("/")
+# @app.route("/")
 def index():
     version = flask.request.args.get("urllib_version")
     url = flask.request.args.get("url")
