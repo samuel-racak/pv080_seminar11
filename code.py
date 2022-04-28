@@ -1,10 +1,11 @@
 from cgitb import reset
 import subprocess
+import urllib
 import yaml
-import hashlib
+# import hashlib
 import subprocess
 import flask
-import urllib
+
 
 
 def transcode_file(request, filename):
